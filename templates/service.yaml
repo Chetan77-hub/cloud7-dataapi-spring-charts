@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cloud7-dataapi-spring.fullname" . }}
+  labels:
+    {{- include "cloud7-dataapi-spring.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "cloud7-dataapi-spring.selectorLabels" . | nindent 4 }}
